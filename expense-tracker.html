@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Tracker</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+  .expense-input {
+    padding: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .expense-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .expense-item {
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Expense Tracker</h2>
+
+<input type="text" id="expenseInput" class="expense-input" placeholder="Enter expense...">
+<button id="addExpenseBtn">Add Expense</button>
+
+<ul id="expenseList" class="expense-list">
+  <!-- Expenses will be dynamically added here -->
+</ul>
+
+<p>Total Expenses: <span id="totalExpenses">0</span></p>
+
+<script>
+  const expenseInput = document.getElementById('expenseInput');
+  const addExpenseBtn = document.getElementById('addExpenseBtn');
+  const expenseList = document.getElementById('expenseList');
+  const totalExpenses = document.getElementById('totalExpenses');
+
+  let total = 0;
+
+  function addExpense() {
+    const expenseText = expenseInput.value.trim();
+
+    if (expenseText !== '') {
+      const expenseItem = document.createElement('li');
+      expenseItem.textContent = expenseText;
+      expenseItem.className = 'expense-item';
+      expenseList.appendChild(expenseItem);
+
+      total += parseFloat(expenseText);
+      totalExpenses.textContent = total.toFixed(2);
+
+      expenseInput.value = '';
+    }
+  }
+
+  addExpenseBtn.addEventListener('click', addExpense);
+
+  expenseInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+      addExpense();
+    }
+  });
+</script>
+
+</body>
+</html>
